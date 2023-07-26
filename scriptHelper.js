@@ -36,7 +36,6 @@ function validateInput(testInput) {
 }
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-  console.log("hello");
   //ALERTS - checking data types
   const pilotInputStatus = validateInput(pilot);
   const copilotInputStatus = validateInput(copilot);
@@ -61,29 +60,61 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     alert("Make sure to enter valid information for each field!");
   }
 
+  //FAULTY ITEMS
+
+  const faultyItems = document.getElementById("faultyItems");
+  // change faultyItems visibility to visible
+  faultyItems.style.visibility = "visible";
+  //update pilot names
+  const pilotLi = document.getElementById("pilotStatus");
+  pilotLi.innerText = `${pilot} ready`;
+  const copilotLi = document.getElementById("copilotStatus");
+  copilotLi.innerText = `${copilot} ready`;
+
+  //if launch is ready
+  const launchStatus = document.getElementById("launchStatus");
+  launchStatus.innerText = "Shuttle is ready for launch";
+  launchStatus.style.color = "#419F6A";
+
   const fuelLevelNumberStatus = function (fuelLevel) {
-    if (fuelLevel < Number(10000)) {
+    if (Number(fuelLevel) < 10000) {
       return "Low Fuel";
     } else {
       return "Fuel Good";
     }
   };
   const cargoMassNumberStatus = function (cargoLevel) {
-    if (cargoLevel > Number(10000)) {
+    if (Number(cargoLevel) > 10000) {
       return "Too Much Cargo";
     } else {
       return "Cargo Good";
     }
   };
 
-  if (fuelLevelNumberStatus === "Low Fuel") {
-    // change faultyItems visibility to visible
+  //if fuel is low
+  if (fuelLevelNumberStatus(fuelLevel) === "Low Fuel") {
+    console.log("fuel is low");
     // update fuel status saying there is not enough fuel for the trip
+    const fuelLi = document.getElementById("fuelStatus");
+    fuelLi.innerText = "Fuel level too low for launch";
   }
 
-  // if (cargoMassNumberStatus === "Too Much Cargo") {
-  //   // some code
-  // }
+  //if cargo is high
+  if (cargoMassNumberStatus(cargoLevel) === "Too Much Cargo") {
+    console.log("cargo too high");
+    // update cargo status saying there is too much cargo for the trip
+    const cargoLi = document.getElementById("cargoStatus");
+    cargoLi.innerText = "Too much mass for the shuttle to take off";
+  }
+
+  // if either fuel or cargo is wrong
+  if (
+    fuelLevelNumberStatus(fuelLevel) === "Low Fuel" ||
+    cargoMassNumberStatus(cargoLevel) === "Too Much Cargo"
+  ) {
+    launchStatus.innerText = "Shuttle not ready for launch";
+    launchStatus.style.color = "#C7254E";
+  }
 }
 
 async function myFetch() {
