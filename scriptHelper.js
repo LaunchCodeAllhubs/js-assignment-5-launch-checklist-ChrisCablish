@@ -30,19 +30,61 @@ function validateInput(testInput) {
     return "Empty";
   } else if (isNaN(Number(testInput))) {
     return "Not a Number";
-  } else if (typeof Number(testInput) === "number") {
+  } else {
     return "Is a Number";
   }
 }
 
-function formSubmission(
-  document,
-  list,
-  pilot,
-  copilot,
-  fuelLevel,
-  cargoLevel
-) {}
+function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
+  console.log("hello");
+  //ALERTS - checking data types
+  const pilotInputStatus = validateInput(pilot);
+  const copilotInputStatus = validateInput(copilot);
+  const fuelLevelInputStatus = validateInput(fuelLevel);
+  const cargoLevelInputStatus = validateInput(cargoLevel);
+
+  if (
+    pilotInputStatus === "Empty" ||
+    copilotInputStatus === "Empty" ||
+    fuelLevelInputStatus === "Empty" ||
+    cargoLevelInputStatus === "Empty"
+  ) {
+    alert("All fields are required!");
+  }
+
+  if (
+    pilotInputStatus === "Is a Number" ||
+    copilotInputStatus === "Is a Number" ||
+    fuelLevelInputStatus === "Not a Number" ||
+    cargoLevelInputStatus === "Not a Number"
+  ) {
+    alert("Make sure to enter valid information for each field!");
+  }
+
+  const fuelLevelNumberStatus = function (fuelLevel) {
+    if (fuelLevel < Number(10000)) {
+      return "Low Fuel";
+    } else {
+      return "Fuel Good";
+    }
+  };
+  const cargoMassNumberStatus = function (cargoLevel) {
+    if (cargoLevel > Number(10000)) {
+      return "Too Much Cargo";
+    } else {
+      return "Cargo Good";
+    }
+  };
+
+  if (fuelLevelNumberStatus === "Low Fuel") {
+    // change faultyItems visibility to visible
+    // update fuel status saying there is not enough fuel for the trip
+  }
+
+  // if (cargoMassNumberStatus === "Too Much Cargo") {
+  //   // some code
+  // }
+}
 
 async function myFetch() {
   let planetsReturned;
