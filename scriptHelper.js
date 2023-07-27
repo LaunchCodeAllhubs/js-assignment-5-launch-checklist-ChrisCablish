@@ -49,6 +49,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     cargoLevelInputStatus === "Empty"
   ) {
     alert("All fields are required!");
+    return;
   }
 
   if (
@@ -58,6 +59,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     cargoLevelInputStatus === "Not a Number"
   ) {
     alert("Make sure to enter valid information for each field!");
+    return;
   }
 
   //FAULTY ITEMS
@@ -67,9 +69,9 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
   faultyItems.style.visibility = "visible";
   //update pilot names
   const pilotLi = document.getElementById("pilotStatus");
-  pilotLi.innerText = `${pilot} ready`;
+  pilotLi.innerText = `Pilot ${pilot} is ready for launch`;
   const copilotLi = document.getElementById("copilotStatus");
-  copilotLi.innerText = `${copilot} ready`;
+  copilotLi.innerText = `Copilot ${copilot} is ready for launch`;
 
   //if launch is ready
   const launchStatus = document.getElementById("launchStatus");

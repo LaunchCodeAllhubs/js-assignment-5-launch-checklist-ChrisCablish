@@ -3,6 +3,7 @@
 window.addEventListener("load", function () {
   //SUBMIT BUTTON
   const formSubmitButton = document.getElementById("formSubmit");
+  //click event
   formSubmitButton.addEventListener("click", function (event) {
     event.preventDefault();
 
